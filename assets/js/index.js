@@ -32,24 +32,22 @@ function loadMainCard(cards){
         const videoCard = document.createElement("div")
         videoCard.innerHTML = `
             <div class="w-[312px] h-[325px]">
-                <div>
-                    <div class="relative md:relative">
-                        <img class="h-[200px] w-[312px] rounded-md" src="${card.thumbnail}" alt="">
-                    </div>
-                    <div class="bg-black inline-block text-white px-1 rounded-sm absolute  top-[21rem] right-[97rem]">
-                        <h3 class="inter">3hrs 56 min ago</h3>
-                    </div>
+                <div class="relative">
+                    <img class="w-[312px] h-[200px] object-cover rounded-md" src="${card.thumbnail}" alt="">
+                    <h3 class="inter absolute bg-black text-white px-1 rounded-sm bottom-4 right-4">3hrs 56 min ago</h3> 
                 </div>
                 <div class="flex items-center gap-2 mt-5">
-                    <img src="${card.profile_picture}" alt="">
+                    <div class="h-[40px] w-[40px] object-cover rounded-full">
+                        <img class="rounded-full h-[40px] w-[40px] object-cover" src="${card.authors[0].profile_picture}" alt="">
+                    </div>
                     <h2 class="font-bold text-base w-[260px]">Building a Winning UX Strategy Using the Kano Model</h2>
                 </div>
                 <div class="flex items-center gap-2 mt-3 ml-12">  
-                    <h3 class="inter text-sm">Awlad Hossain</h3>
+                    <h3 class="inter text-sm">${card.authors[0].profile_name}</h3>
                     <img src="./assets/images/Group 3.png" alt="">
                 </div>
                 <div class="mt-3 ml-12">
-                    <h3 class="inter text-sm">91K views</h3>
+                    <h3 class="inter text-sm">${card.others.views} Views</h3>
                 </div>
             </div>
         `
@@ -60,4 +58,3 @@ function loadMainCard(cards){
 
 
 loadCatagories ()
-loadCard()
