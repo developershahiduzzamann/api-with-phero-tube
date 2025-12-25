@@ -40,7 +40,7 @@ const  loadMainCard=(cards)=>{
         videoContainer.innerHTML = "";
     if(cards.length === 0){
         videoContainer.innerHTML = `
-            <div class="flex items-center flex-col mt-36">
+            <div class="col-span-full flex flex-col items-center justify-center mt-36 text-center">
                 <img src="./assets/images/Icon.png" alt="">
                 <h1 class="inter font-bold text-[32px]">Oops!! Sorry, There is no <span class="block text-center">content here</span></h1>
             </div>
