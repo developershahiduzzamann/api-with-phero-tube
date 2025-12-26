@@ -1,3 +1,10 @@
+function removeActiveClass(){
+    const activeButtons = document.getElementsByClassName("active");
+
+    for(let btn of activeButtons){
+        btn.classList.remove("active")
+    }
+}
 
 function loadCatagories (){
     fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -11,6 +18,8 @@ function  loadCard (){
     fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((res) => res.json())
     .then((data) => {
+        removeActiveClass()
+        document.getElementById("btn-all").classList.add("active")
         loadMainCard(data.videos)
     })
 }
@@ -19,7 +28,12 @@ const musicVideo = (id)=>{
     const url =`https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
     fetch(url)
     .then(response => response.json())
-    .then(data => loadMainCard(data.category))
+    .then(data => {
+        removeActiveClass()
+        const clickButton = document.getElementById(`btn-${id}`);
+        clickButton.classList.add("active")
+        loadMainCard(data.category)
+    })
 };
 
 
@@ -28,7 +42,7 @@ function displayCatagories (catagoris){
     for(const cat of catagoris){
         const catagoyiDiv = document.createElement("div");
         catagoyiDiv.innerHTML = `
-        <button onclick ="musicVideo(${cat.category_id})" class="btn bg-[#D3D3D3] text-base inter font-medium hover:bg-red-500 hover:text-white">${cat.category}</button>
+            <button id="btn-${cat.category_id}" onclick ="musicVideo(${cat.category_id})" class="btn bg-[#D3D3D3] text-base inter font-medium hover:bg-red-500 hover:text-white">${cat.category}</button>
         `;
         catagoryContainer.append(catagoyiDiv)
     }

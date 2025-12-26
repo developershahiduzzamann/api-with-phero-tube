@@ -4,3 +4,9 @@
 .inter{
     font-family: "Inter", sans-serif;
 }
+
+.active{
+    background: red;
+    color: white;
+
+}
