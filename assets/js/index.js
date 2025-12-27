@@ -5,7 +5,6 @@ function removeActiveClass(){
         btn.classList.remove("active")
     }
 }
-
 function loadCatagories (){
     fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
     .then((response) => response.json())
@@ -13,9 +12,8 @@ function loadCatagories (){
         displayCatagories(data.categories)
     })
 }
-
-function  loadCard (){
-    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+function  loadCard (seaechText = ""){
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${seaechText}`)
     .then((res) => res.json())
     .then((data) => {
         removeActiveClass()
@@ -23,7 +21,6 @@ function  loadCard (){
         loadMainCard(data.videos)
     })
 }
-
 const loadVidoeDetsils = (videoId)=>{
     // console.log(videoId)
     const url =`https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
@@ -33,7 +30,6 @@ const loadVidoeDetsils = (videoId)=>{
         displayVideoDetsils(data.video)
     })
 }
-
 const displayVideoDetsils = (video)=>{
     console.log(video)
     document.getElementById("video_details").showModal()
@@ -55,7 +51,6 @@ const displayVideoDetsils = (video)=>{
     `
 
 }
-
 const musicVideo = (id)=>{
     const url =`https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
     fetch(url)
@@ -67,8 +62,6 @@ const musicVideo = (id)=>{
         loadMainCard(data.category)
     })
 };
-
-
 function displayCatagories (catagoris){
     const catagoryContainer = document.getElementById("catagori-container");
     for(const cat of catagoris){
@@ -79,8 +72,6 @@ function displayCatagories (catagoris){
         catagoryContainer.append(catagoyiDiv)
     }
 }
-
-
 const  loadMainCard=(cards)=>{
     const videoContainer = document.getElementById("video-container");  
         videoContainer.innerHTML = "";
@@ -93,8 +84,8 @@ const  loadMainCard=(cards)=>{
         `;
     return;
     }
-        cards.forEach((card) =>{
-        const videoCard = document.createElement("div")
+    cards.forEach((card) =>{
+    const videoCard = document.createElement("div")
         
         videoCard.innerHTML = `
             <div class="w-[312px] h-[325px]">
@@ -121,11 +112,12 @@ const  loadMainCard=(cards)=>{
             </div>
         `
         videoContainer.appendChild(videoCard)
-        })
-            
-       
+    })              
 }
-
+document.getElementById("search-input").addEventListener("keyup",(even)=>{
+    const input = even.target.value
+    loadCard(input)
+})
 loadCatagories ()
 
 
