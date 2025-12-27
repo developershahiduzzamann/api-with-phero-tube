@@ -24,6 +24,38 @@ function  loadCard (){
     })
 }
 
+const loadVidoeDetsils = (videoId)=>{
+    // console.log(videoId)
+    const url =`https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
+    fetch(url)
+    .then(res=> res.json())
+    .then(data =>{
+        displayVideoDetsils(data.video)
+    })
+}
+
+const displayVideoDetsils = (video)=>{
+    console.log(video)
+    document.getElementById("video_details").showModal()
+    const detailsContaner = document.getElementById("details-container")
+    detailsContaner.innerHTML =`
+        <div class="card bg-base-100 image-full w-96 shadow-sm">
+            <figure>
+                <img
+                src="${video.thumbnail}"
+                alt="Shoes" />
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">${video.title}</h2>
+                <h2 class="card-title">${video.authors[0].profile_name}</h2>
+                <p>${video.description}</p>
+                
+            </div>
+        </div>
+    `
+
+}
+
 const musicVideo = (id)=>{
     const url =`https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
     fetch(url)
@@ -78,10 +110,13 @@ const  loadMainCard=(cards)=>{
                 </div>
                 <div class="flex items-center gap-2 mt-3 ml-12">  
                     <h3 class="inter text-sm">${card.authors[0].profile_name}</h3>
-                    <img src="./assets/images/Group 3.png" alt="">
+                    <span>${card.authors[0].verified == true ? `<img src="./assets/images/Group 3.png" alt=""` : ""}</span>    
                 </div>
                 <div class="mt-3 ml-12">
                     <h3 class="inter text-sm">${card.others.views} Views</h3>
+                </div>
+                <div class="mt-2 pb-5">
+                <button onclick="loadVidoeDetsils('${card.video_id}')" class="btn btn-block">Show Details</button>
                 </div>
             </div>
         `
